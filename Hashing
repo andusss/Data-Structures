@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+
+int insert(int hashtable[], int req_id, int hash_server[]){
+
+int main(){
+    int req_id, hash_val;
+    int server, req_num, hash_server[10];
+    
+    cout<<"Enter number of servers: ";
+    cin >> server;
+    
+    cout<<"Enter number of requests: ";
+    cin>>req_num;
+    
+    cout<<"Enter request IDs: ";
+    for(int i=0; i<req_num; i++){
+        cin>>req_id;
+        hash_val = req_id % server;
+        hash_server[hash_val] = req_id;
+    }
+    
+    cout<<"The entered request IDs are: ";
+    for(int j=0; j<server; j++){
+        cout<<hash_server[j]<<" ";
+    }
+        
+return 0;
+}
+
+int insert(int hashtable[], int req_id, int hash_server[]){
+    int i, j;
+    j = req_id % server;
+    for (i=0; i<server; i++){
+        if (hash_server[j] == 0){
+            hashtable[j] = req_id;
+            hash_server[j] = 1;
+        }
+        j = (j+1) % server;
+    }
+return (-1);
+}
