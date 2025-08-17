@@ -1,0 +1,51 @@
+#include<iostream>
+using namespace std;
+
+int insert(float hashtable[], float req_id, int hash_server[], int server) {
+    int j = (int)req_id % server;   // hash based on req_id % server
+
+    for (int i = 0; i < server; i++) {
+        if (hash_server[j] == 0) {   // empty slot
+            hashtable[j] = req_id;
+            hash_server[j] = 1;      // mark slot as filled
+            return j;
+        }
+        j = (j + 1) % server;        // linear probing
+    }
+    return -1;  // if table is full
+}
+
+int main() {
+    int server, req_num;
+    float req_id;
+    cout << "Enter number of servers: ";
+    cin >> server;
+
+    cout << "Enter number of requests: ";
+    cin >> req_num;
+
+    float hashtable[100];     // to store request IDs
+    int hash_server[100] = {0}; // flags (0 = empty, 1 = occupied)
+
+    cout << "Enter request IDs: \n";
+    for (int i = 0; i < req_num; i++) {
+        cin >> req_id;
+        int serverIndex = insert(hashtable, req_id, hash_server, server);
+
+        if (serverIndex != -1)
+            cout << "Request '" << req_id << "' is handled by Server " << serverIndex << "\n";
+        else
+            cout << "Request '" << req_id << "' could not be handled (servers full)\n";
+    }
+
+    cout << "\nThe entered request IDs are: ";
+    for (int j = 0; j < server; j++) {
+        if (hash_server[j] == 1)
+            cout << hashtable[j] << " ";
+        else
+            cout << "empty ";
+    }
+    cout << "\n";
+
+    return 0;
+}
