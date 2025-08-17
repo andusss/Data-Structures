@@ -1,0 +1,52 @@
+#include<iostream>
+using namespace std;
+
+double average(int sum, int count) {
+    return (double)sum / count; 
+}
+
+int main() {
+    const int MAX_CITIES = 100; 
+    const int MAX_MONTHS = 100; 
+    int rainfall[MAX_CITIES][MAX_MONTHS], month, city;
+    
+    do {
+        cout << "Enter number of cities: ";
+        cin >> city;
+    } while (city <= 0 || city > MAX_CITIES);
+    
+    do {
+        cout << "Enter number of months: ";
+        cin >> month;
+    } while (month <= 0 || month > MAX_MONTHS);
+    
+    for (int j = 0; j < city; j++) {
+        cout << "\nCity " << j + 1 << ":\n";
+        for (int i = 0; i < month; i++) {
+            cout << "Enter rainfall amount for month " << i + 1 << ": ";
+            cin >> rainfall[j][i]; 
+        }
+    }
+    
+    cout << "\n=== Average Rainfall Report ===\n";
+    
+    cout << "\nCity Averages:\n";
+    for (int j = 0; j < city; j++) {
+        int citySum = 0;
+        for (int i = 0; i < month; i++) {
+            citySum += rainfall[j][i];
+        }
+        cout << "City " << j + 1 << ": " << average(citySum, month) << " mm\n";
+    }
+    
+    cout << "\nMonth Averages:\n";
+    for (int i = 0; i < month; i++) {
+        int monthSum = 0;
+        for (int j = 0; j < city; j++) {
+            monthSum += rainfall[j][i];
+        }
+        cout << "Month " << i + 1 << ": " << average(monthSum, city) << " mm\n";
+    }
+    
+    return 0;
+}
