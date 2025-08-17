@@ -1,0 +1,97 @@
+//BUBBLE SORT
+#include <iostream>
+using namespace std;
+
+class Game {
+public:
+    int n;
+    int* score;
+    void getdata();
+    void display();
+};
+
+void Game::getdata() {
+    cout << "Enter number of players: ";
+    cin >> n;
+    score = new int[n];
+    cout << "Enter their respective scores: ";
+    for (int k = 0; k < n; k++) {
+        cin >> score[k];
+    }
+}
+
+void Game::display() {
+    for (int l = 0; l < n; l++) {
+        cout << score[l] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    Game start;
+    start.getdata();
+
+    int i, j, key;
+    for (i = 0; i < start.n - 1; i++) {
+        for (j = 0; j < start.n - i - 1; j++) {
+            key = start.score[j];
+            if (start.score[j] > start.score[j + 1]) {
+                start.score[j] = start.score[j + 1];
+                start.score[j + 1] = key;
+            }
+        }
+    }
+
+    cout << "Sorted scores: ";
+    start.display();
+
+//INSERTION SORT
+#include<iostream>
+using namespace std;
+
+class Game_Cards{
+public:
+    int cards[52];
+    int n;
+    int key;
+    int i, j;
+    void get();
+    void display();
+};
+void Game_Cards :: get(){
+    cout << "Enter number of cards: " << endl;
+    cin >> n; 
+    cout << "Enter the card values: " << endl;
+    for (int i = 0; i < n; i++) {
+        cin >> cards[i];      
+    }
+}
+
+void Game_Cards    :: display(){
+    cout << "Hand after insertion: " << endl;
+    for (int i = 0; i < n; i++) {
+        cout << cards[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    Game_Cards g;
+    g.get();
+
+    for (g.i = 1; g.i < g.n; g.i++) {
+        g.key = g.cards[g.i];
+        g.j = g.i - 1;
+        while (g.j >= 0 && g.cards[g.j] > g.key) {
+            g.cards[g.j + 1] = g.cards[g.j];
+            g.j = g.j - 1;
+        }
+        g.cards[g.j + 1] = g.key;
+    }
+
+    g.display();
+    return 0;
+}
+
+    return 0;
+}
