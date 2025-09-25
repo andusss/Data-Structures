@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+
+class node {
+public:
+    int priority;
+    int executionTime;
+    node* next;
+
+    node(int p, int e) {  //parameterised constructer
+        priority = p;
+        executionTime = e;
+        next = NULL;
+    }
+};
+
+void insertByPriority(node*& head, int priority, int executionTime) {
+    node* newNode = new node(priority, executionTime);
+
+    if (head == NULL || head->priority < priority) {
+        // Insert at the head
+        newNode->next = head;
+        head = newNode;
+    } else {
+        node* temp = head;
+        // Traverse to find insertion point
+        while (temp->next != NULL && temp->next->priority >= priority) {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+}
+
+void displayTasks(node* head) {
+    cout << "Tasks in order of priority:\n";
+    node* temp = head;
+    while (temp != NULL) {
+        cout << "Priority: " << temp->priority
+             << ", Execution Time: " << temp->executionTime << " ms\n";
+        temp = temp->next;
+    }
+}
+
+int main() {
+    node* head = NULL;
+    int n, priority, execTime;
+
+    cout << "Enter number of tasks: ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cout << "Enter priority of task " << (i + 1) << " (higher number = more priority): ";
+        cin >> priority;
+
+        cout << "Enter execution time for task " << (i + 1) << ": ";
+        cin >> execTime;
+
+        insertByPriority(head, priority, execTime);
+    }
+
+    displayTasks(head);
+
+
+    return 0;
+}
