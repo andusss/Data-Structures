@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string coffeeShop[10];  // queue array
+    int front = -1, rear = -1;
+    int choice;
+    string name;
+
+    do {
+        cout << "\n--- Coffee Shop Queue Menu ---\n";
+        cout << "1. New Customer Arrival (Enqueue)\n";
+        cout << "2. Serve Customer (Dequeue)\n";
+        cout << "3. Show Queue\n";
+        cout << "4. Exit\n";
+        cout << "\nChoose an option: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: // Enqueue
+                if (rear == 9) {
+                    cout << "Queue is full! Cannot add more customers.\n";
+                } else {
+                    cout << "\nEnter customer name: ";
+                    cin >> name;
+                    if (front == -1) {
+                        front = 0;
+                    }
+                    rear++;
+                    coffeeShop[rear] = name;
+                    cout << "\n" << name << " joined the line.\n";
+                }
+                break;
+
+            case 2: // Dequeue
+                if (front == -1 || front > rear) {
+                    cout << "\nNo customers in line to serve.\n";
+                } else {
+                    cout << "\n" << coffeeShop[front] << "'s order is ready. They leave the line.\n";
+                    front++;
+                    if (front > rear) {  // reset queue when empty
+                        front = rear = -1;
+                    }
+                }
+                break;
+
+            case 3: // Show Queue
+                if (front == -1 || front > rear) {
+                    cout << "\nCurrent Line: (empty)\n";
+                } else {
+                    cout << "\nCurrent Line: ";
+                    for (int i = front; i <= rear; i++) {
+                        cout << coffeeShop[i];
+                        if (i < rear) cout << " -> ";
+                    }
+                    cout << "\n";
+                }
+                break;
+
+            case 4: // Exit
+                cout << "\nExiting program. Goodbye!\n";
+                break;
+
+            default:
+                cout << "\nInvalid option. Please try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
